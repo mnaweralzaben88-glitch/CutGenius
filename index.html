@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CutGenius - تحويل الفيديوهات إلى مقاطع فيروسية</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #0b0f19;
+            color: #ffffff;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.7;
+        }
+        /* الهيدر العلوي */
+        .site-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: #111827;
+            border-bottom: 1px solid #1f2937;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #38bdf8;
+            letter-spacing: -0.5px;
+        }
+        .nav-link {
+            background: #1f2937;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .nav-link:hover {
+            color: #ffffff;
+            background: #374151;
+        }
+        /* قسم الواجهة (Hero) */
+        .hero {
+            text-align: center;
+            padding: 90px 20px;
+            background: radial-gradient(circle at center, #1e293b 0%, #0b0f19 75%);
+        }
+        .hero h1 {
+            color: #f8fafc;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero h1 span {
+            color: #38bdf8;
+        }
+        .hero p {
+            color: #94a3b8;
+            font-size: 1.15rem;
+            max-width: 650px;
+            margin: 0 auto 35px auto;
+        }
+        /* الأقسام العامة */
+        .section {
+            padding: 60px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .section h2 {
+            color: #f1f5f9;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            justify-content: center;
+        }
+        .card {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: right;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: #38bdf8;
+        }
+        .card h3 {
+            color: #38bdf8;
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+        }
+        .card p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+        /* بطاقات الأسعار والدفع */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .pricing-card {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 16px;
+            padding: 35px 25px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+        .pricing-card.featured {
+            border-color: #38bdf8;
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.15);
+        }
+        .pricing-card h3 {
+            color: #f8fafc;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+        .price {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #34d399;
+            margin: 20px 0;
+        }
+        .pricing-card p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+        }
+        .btn {
+            background-color: #2563eb;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            display: block;
+            font-weight: bold;
+            transition: background-color 0.2s;
+            text-align: center;
+        }
+        .btn:hover {
+            background-color: #1d4ed8;
+        }
+        /* التذييل (Footer) */
+        .site-footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: #111827;
+            border-top: 1px solid #1f2937;
+            color: #64748b;
+            margin-top: 60px;
+            font-size: 0.9rem;
+        }
+    <
