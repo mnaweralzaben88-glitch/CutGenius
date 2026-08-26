@@ -1,190 +1,40 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CutGenius - AI Video Repurposing Platform</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>CutGenius - AI Video Platform</title>
     <style>
-        :root {
-            --primary: #6366f1;
-            --primary-hover: #4f46e5;
-            --bg-dark: #0f172a;
-            --bg-card: #1e293b;
-            --border-color: #334155;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent: #10b981;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            line-height: 1.6;
-        }
-
-        /* Navbar */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5%;
-            background: rgba(15, 23, 42, 0.9);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: 800;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo span {
-            color: var(--primary);
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .lang-select {
-            background: var(--bg-card);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            padding: 8px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
-        }
-
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        /* Hero Header */
-        .hero {
+            background-color: #0f172a;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
             text-align: center;
-            margin-bottom: 50px;
+            padding: 50px;
         }
-
-        .hero h1 {
-            font-size: 48px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            background: linear-gradient(to right, #818cf8, #c084fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        h1 {
+            color: #818cf8;
+            font-size: 40px;
         }
-
-        .hero p {
+        p {
+            color: #94a3b8;
             font-size: 18px;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto;
         }
-
-        /* Dashboard App Workspace */
-        .workspace {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-            margin-bottom: 60px;
-        }
-
-        .upload-tabs {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
-        }
-
-        .tab-btn {
-            background: transparent;
+        .btn {
+            background-color: #6366f1;
+            color: white;
+            padding: 12px 24px;
             border: none;
-            color: var(--text-muted);
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            padding: 8px 16px;
-            border-radius: 6px;
-            transition: all 0.3s;
-        }
-
-        .tab-btn.active {
-            background: var(--primary);
-            color: #fff;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* Dropzone */
-        .dropzone {
-            border: 2px dashed var(--border-color);
-            border-radius: 12px;
-            padding: 40px;
-            text-align: center;
-            cursor: pointer;
-            transition: border-color 0.3s;
-            background: rgba(15, 23, 42, 0.5);
-        }
-
-        .dropzone:hover {
-            border-color: var(--primary);
-        }
-
-        .dropzone i {
-            font-size: 48px;
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-
-        /* URL Input Section */
-        .url-box {
-            display: flex;
-            gap: 10px;
-        }
-
-        .url-input {
-            flex: 1;
-            background: var(--bg-dark);
-            border: 1px solid var(--border-color);
-            padding: 14px 18px;
             border-radius: 8px;
-            color: #fff;
             font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
         }
-
-        .btn-primary {
-            background: 
+    </style>
+</head>
+<body>
+    <h1>CutGenius AI Platform</h1>
+    <p>Welcome! The AI video repurposing platform is ready for backend integration.</p>
+    <button class="btn" onclick="alert('System Active! Ready for Backend & AI setup.')">Test Platform</button>
+</body>
+</html>
