@@ -3,81 +3,504 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cut Genius - تحويل الفيديوهات الطويلة إلى ريلز وتيك توك</title>
+    <title>CutGenius - تحويل الفيديوهات الطويلة إلى ريلز بضغطة زر</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Tahoma, sans-serif; }
-        body { background-color: #0f172a; color: #f8fafc; padding: 20px; line-height: 1.6; }
-        .container { max-width: 900px; margin: 0 auto; }
-        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #334155; margin-bottom: 30px; }
-        .logo { font-size: 22px; font-weight: bold; color: #fff; }
-        .logo span { color: #6366f1; }
-        .lang-select { background: #1e293b; color: #fff; padding: 8px; border-radius: 5px; border: 1px solid #334155; }
-        .hero { text-align: center; margin-bottom: 40px; }
-        .hero h1 { font-size: 28px; margin-bottom: 15px; color: #818cf8; }
-        .cta-btn { display: inline-block; background: #6366f1; color: #fff; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 10px; }
-        .workspace { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 25px; margin-bottom: 30px; text-align: center; }
-        .upload-box { border: 2px dashed #475569; padding: 20px; border-radius: 8px; margin-bottom: 15px; cursor: pointer; }
-        .url-box { display: flex; gap: 10px; margin-top: 15px; }
-        .url-input { flex: 1; padding: 10px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 5px; }
-        .url-btn { background: #6366f1; color: #fff; border: none; padding: 0 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        .pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 40px; }
-        .price-card { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 20px; text-align: center; }
-        .price-card.pop { border-color: #6366f1; }
-        .price-num { font-size: 24px; font-weight: bold; color: #38bdf8; margin: 15px 0; }
-        .price-btn { width: 100%; padding: 10px; background: #6366f1; color: #fff; border: none; border-radius: 5px; cursor: pointer; margin-top: 15px; font-weight: bold; }
+        :root {
+            --bg-deep: #030712;
+            --bg-card: #111827;
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.4);
+            --accent: #a855f7;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --border: #1f2937;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
+        
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Background Glow Effect */
+        .glow-bg {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 300px;
+            background: linear-gradient(to right, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.15));
+            filter: blur(80px);
+            z-index: -1;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .lang-select {
+            background: var(--bg-card);
+            color: var(--text-main);
+            padding: 8px 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            font-weight: 500;
+            outline: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.1);
+            color: #818cf8;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .hero h1 {
+            font-size: 38px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        /* Workspace Box */
+        .workspace-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            margin-bottom: 50px;
+        }
+
+        .drop-zone {
+            border: 2px dashed #374151;
+            border-radius: 14px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            background: rgba(17, 24, 39, 0.5);
+            margin-bottom: 20px;
+        }
+
+        .drop-zone:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.03);
+        }
+
+        .drop-zone i {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .divider {
+            text-align: center;
+            color: var(--text-muted);
+            margin: 20px 0;
+            font-size: 14px;
+            position: relative;
+        }
+
+        .url-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .url-input {
+            flex: 1;
+            background: var(--bg-deep);
+            border: 1px solid var(--border);
+            padding: 14px 18px;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .url-input:focus { border-color: var(--primary); }
+
+        .action-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: #fff;
+            border: none;
+            padding: 0 25px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 12px var(--primary-glow);
+        }
+
+        .action-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        /* Pricing Section */
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 35px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .price-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .price-card.popular {
+            border-color: var(--primary);
+            background: linear-gradient(to bottom, #111827, #1e1b4b);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .price-num {
+            font-size: 32px;
+            font-weight: 900;
+            color: #fff;
+            margin: 20px 0;
+        }
+
+        .price-num span { font-size: 14px; color: var(--text-muted); font-weight: normal; }
+
+        .price-features {
+            list-style: none;
+            text-align: right;
+            margin: 25px 0;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .price-features li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .price-features li i { color: #10b981; }
+
+        .plan-btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .plan-btn.primary {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 12px var(--primary-glow);
+        }
+
+        .plan-btn.secondary {
+            background: var(--border);
+            color: #fff;
+        }
+
+        .plan-btn:hover { opacity: 0.9; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 28px; }
+            .url-row { flex-direction: column; }
+        }
     </style>
 </head>
 <body>
 
+<div class="glow-bg"></div>
+
 <div class="container">
     <!-- Navbar -->
     <header>
-        <div class="logo"><i class="fa-solid fa-wand-magic-sparkles"></i> Cut <span>Genius</span></div>
+        <div class="logo">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <span>CutGenius</span>
+        </div>
         <div>
             <select class="lang-select" id="langSelect" onchange="changeLang(this.value)">
-                <option value="ar">العربية</option>
+                <option value="ar">العربية (Arabic)</option>
                 <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+                <option value="de">Deutsch</option>
+                <option value="it">Italiano</option>
+                <option value="pt">Português</option>
+                <option value="tr">Türkçe</option>
+                <option value="ru">Русский</option>
+                <option value="zh">中文</option>
             </select>
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <div class="hero">
-        <h1 id="hTitle">حول فيديوهاتك الطويلة إلى مقاطع ريلز وتيك توك بضغطة زر وبدون مجهود باستخدام الذكاء الاصطناعي</h1>
-        <p style="color: #94a3b8; margin-bottom: 15px;" id="hSub">الجمهور المستهدف: صناع المحتوى / بودكاست / المسوقون</p>
-        <a href="#workspace" class="cta-btn" id="hBtn">جرب الآن مجاناً</a>
+        <div class="badge" id="badgeText"><i class="fa-solid fa-bolt"></i> مدعوم بأحدث خوارزميات الذكاء الاصطناعي</div>
+        <h1 id="heroTitle">حول فيديوهاتك الطويلة إلى <span>مقاطع ريلز وتيك توك</span> بضغطة زر</h1>
+        <p id="heroSub">المنصة الأولى الموجهة لصناع المحتوى، البودكاست، والمسوقين لمضاعفة المشاهدات بسرعة خيالية.</p>
     </div>
 
     <!-- Workspace -->
-    <div class="workspace" id="workspace">
-        <div class="upload-box" onclick="alert('جاهز لرفع الملفات')">
-            <i class="fa-solid fa-cloud-arrow-up" style="font-size: 30px; color: #6366f1; margin-bottom: 10px;"></i>
-            <h3 id="upText">اسحب وأفلت فيديو هنا أو اضغط للاختيار (MP4, MOV)</h3>
+    <div class="workspace-card">
+        <div class="drop-zone" onclick="alert('جارٍ تفعيل نافذة رفع الفيديوهات...')">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <h3 id="dropTitle" style="margin-bottom: 5px;">اسحب وأفلت فيديو هنا أو اضغط للاختيار</h3>
+            <p id="dropDesc" style="color: var(--text-muted); font-size: 13px;">يدعم ملفات MP4, MOV بوضوح عالي</p>
         </div>
-        <p style="margin: 10px 0; color: #94a3b8;" id="orText">أو</p>
-        <div class="url-box">
-            <input type="text" class="url-input" id="urlPlaceholder" placeholder="ضع رابط يوتيوب هنا...">
-            <button class="url-btn" id="startBtn" onclick="alert('تم استلام الرابط')">ابدأ</button>
+        <div class="divider" id="orDivider">أو ضع رابط يوتيوب مباشر</div>
+        <div class="url-row">
+            <input type="text" class="url-input" id="urlInput" placeholder="https://www.youtube.com/watch?v=...">
+            <button class="action-btn" id="startBtn" onclick="alert('جارٍ تحليل الفيديو بالذكاء الاصطناعي...')">ابدأ التحويل الآن</button>
         </div>
-    </div>
-
-    <!-- Steps -->
-    <div style="background: #1e293b; padding: 20px; border-radius: 10px; margin-bottom: 30px; border: 1px solid #334155;">
-        <h3 style="margin-bottom: 15px; text-align: center;" id="stepsTitle">كيف تعمل المنصة؟</h3>
-        <p id="s1">1. ارفع الفيديو (ضع رابط يوتيوب، أو ارفع ملف).</p>
-        <p id="s2" style="margin: 8px 0;">2. الذكاء الاصطناعي يحلل ويقص تلقائياً.</p>
-        <p id="s3">3. حمل وانشر (تحصل على مقاطع قصيرة جاهزة مع الترجمة).</p>
     </div>
 
     <!-- Pricing -->
-    <div class="pricing">
+    <h2 class="section-title" id="pricingTitle">خطط الأسعار المصممة لنجاحك</h2>
+    <div class="pricing-grid">
+        <!-- Trial -->
         <div class="price-card">
             <h3 id="p1Title">الباقة التجريبية</h3>
-            <div class="price-num">0$</div>
-            <p id="p1Desc">تجربتان مجانيتان للفيديو</p>
-            <button class="price-btn" style="background: #334155;" id="p1Btn">الباقة الحالية</button>
+            <div class="price-num">0$ <span>/ مجاناً</span></div>
+            <ul class="price-features">
+                <li><i class="fa-solid fa-check"></i> <span id="p1f1">تجربتان مجانيتان للفيديو</span></li>
+                <li><i class="fa-solid fa-check"></i> <span id="p1f2">جودة تصدير 720p</span></li>
+                <li><i class="fa-solid fa-check"></i> <span id="p1f3">قص تلقائي ذكي</span></li>
+            </ul>
+            <button class="plan-btn secondary" id="p1Btn">الباقة الحالية</button>
         </div>
-        <div class="price-card pop">
+
+        <!-- Starter -->
+        <div class="price-card popular">
+            <div class="popular-badge" id="popBadge">الأكثر طلباً</div>
             <h3 id="p2Title">باقة المبتدئين (Starter)</h3>
-            <div class="price-num">15$ <span style="font-size: 14px; color: #94a3b8;">/ شهري
+            <div class="price-num">15$ <span>/ شهرياً</span></div>
+            <ul class="price-features">
+                <li><i class="fa-solid fa-check"></i> <span id="p2f1">150 دقيقة رفع شهرياً</span></li>
+                <li><i class="fa-solid fa-check"></i> <span id="p2f2">تصدير بجودة 1080p HD</span></li>
+                <li><i class="fa-solid fa-check"></i> <span id="p2f3">إزالة العلامة المائية</span></li>
+            </ul>
+            <button class="plan-btn primary" id="p2Btn" onclick="alert('الانتقال لبوابة الدفع...')">اشترك الآن</button>
+        </div>
+
+        <!-- Pro -->
+        <div class="price-card">
+            <h3 id="p3Title">الباقة المتقدمة (Pro)</h3>
+            <div class="price-num">29$ <span>/ شهرياً</span></div>
+            <ul class="price-features">
+                <li><i class="fa-solid fa-check"></i> <span id="p3f1">معالجة غير محدودة للفيديوهات</span></li>
+                <li><i class="fa-solid fa-check"></i> <span id="p3f2">دعم كل اللغات (10 لغات)</span></li>
+                <li><i class="fa-solid fa-check"></i> <span id="p3f3">دعم فني أولوية قصوى</span></li>
+            </ul>
+            <button class="plan-btn primary" id="p3Btn" onclick="alert('الانتقال لبوابة الدفع...')">اشترك الآن</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const translations = {
+        ar: {
+            badgeText: "مدعوم بأحدث خوارزميات الذكاء الاصطناعي",
+            heroTitle: "حول فيديوهاتك الطويلة إلى <span>مقاطع ريلز وتيك توك</span> بضغطة زر",
+            heroSub: "المنصة الأولى الموجهة لصناع المحتوى، البودكاست، والمسوقين لمضاعفة المشاهدات بسرعة خيالية.",
+            dropTitle: "اسحب وأفلت فيديو هنا أو اضغط للاختيار",
+            dropDesc: "يدعم ملفات MP4, MOV بوضوح عالي",
+            orDivider: "أو ضع رابط يوتيوب مباشر",
+            urlPlaceholder: "https://www.youtube.com/watch?v=...",
+            startBtn: "ابدأ التحويل الآن",
+            pricingTitle: "خطط الأسعار المصممة لنجاحك",
+            p1Title: "الباقة التجريبية",
+            p1f1: "تجربتان مجانيتان للفيديو",
+            p1f2: "جودة تصدير 720p",
+            p1f3: "قص تلقائي ذكي",
+            p1Btn: "الباقة الحالية",
+            popBadge: "الأكثر طلباً",
+            p2Title: "باقة المبتدئين (Starter)",
+            p2f1: "150 دقيقة رفع شهرياً",
+            p2f2: "تصدير بجودة 1080p HD",
+            p2f3: "إزالة العلامة المائية",
+            p2Btn: "اشترك الآن",
+            p3Title: "الباقة المتقدمة (Pro)",
+            p3f1: "معالجة غير محدودة للفيديوهات",
+            p3f2: "دعم كل اللغات (10 لغات)",
+            p3f3: "دعم فني أولوية قصوى",
+            p3Btn: "اشترك الآن"
+        },
+        en: {
+            badgeText: "Powered by Advanced AI Algorithms",
+            heroTitle: "Transform your long videos into <span>Reels & TikToks</span> with one click",
+            heroSub: "The ultimate platform for content creators, podcasters, and marketers to scale fast.",
+            dropTitle: "Drag & drop video here or click to browse",
+            dropDesc: "Supports MP4, MOV in high definition",
+            orDivider: "Or paste a direct YouTube link",
+            urlPlaceholder: "https://www.youtube.com/watch?v=...",
+            startBtn: "Start AI Clipping",
+            pricingTitle: "Pricing Plans Built for Growth",
+            p1Title: "Trial Plan",
+            p1f1: "2 Free Video Tests",
+            p1f2: "720p Export Quality",
+            p1f3: "Smart Auto-Crop",
+            p1Btn: "Current Plan",
+            popBadge: "Most Popular",
+            p2Title: "Starter Plan",
+            p2f1: "150 Upload Minutes/mo",
+            p2f2: "1080p HD Export",
+            p2f3: "Watermark Removal",
+            p2Btn: "Subscribe Now",
+            p3Title: "Pro Plan",
+            p3f1: "Unlimited Video Processing",
+            p3f2: "All 10 Languages Supported",
+            p3f3: "Priority VIP Support",
+            p3Btn: "Subscribe Now"
+        },
+        fr: {
+            badgeText: "Propulsé par des algorithmes d'IA avancés",
+            heroTitle: "Transformez vos vidéos en <span>Reels & TikToks</span> en un clic",
+            heroSub: "La plateforme idéale pour les créateurs et marketeurs.",
+            dropTitle: "Glissez-déposez la vidéo ici ou cliquez",
+            dropDesc: "Prend en charge MP4, MOV",
+            orDivider: "Ou collez un lien YouTube direct",
+            urlPlaceholder: "https://www.youtube.com/watch?v=...",
+            startBtn: "Commencer",
+            pricingTitle: "Plans tarifaires",
+            p1Title: "Essai", p1f1: "2 tests gratuits", p1f2: "Qualité 720p", p1f3: "Découpe auto", p1Btn: "Plan actuel",
+            popBadge: "Populaire",
+            p2Title: "Starter", p2f1: "150 min/mois", p2f2: "1080p HD", p2f3: "Sans filigrane", p2Btn: "S'abonner",
+            p3Title: "Pro", p3f1: "Illimité", p3f2: "10 langues", p3f3: "Support VIP", p3Btn: "S'abonner"
+        },
+        es: {
+            badgeText: "Impulsado por Inteligencia Artificial",
+            heroTitle: "Transforma tus videos en <span>Reels y TikToks</span> al instante",
+            heroSub: "La plataforma definitiva para creadores y especialistas en marketing.",
+            dropTitle: "Arrastra y suelta tu video aquí o haz clic",
+            dropDesc: "Compatible con MP4, MOV",
+            orDivider: "O pega un enlace de YouTube",
+            urlPlaceholder: "https://www.youtube.com/watch?v=...",
+            startBtn: "Empezar",
+            pricingTitle: "Planes de Precios",
+            p1Title: "Prueba", p1f1: "2 videos gratis", p1f2: "Calidad 720p", p1f3: "Corte inteligente", p1Btn: "Plan actual",
+            popBadge: "Popular",
+            p2Title: "Starter", p2f1: "150 min/mes", p2f2: "1080p HD", p2f3: "Sin marca de agua", p2Btn: "Suscribirse",
+            p3Title: "Pro", p3f1: "Ilimitado", p3f2: "10 idiomas", p3f3: "Soporte VIP", p3Btn: "Suscribirse"
+        },
+        de: {
+            badgeText: "Angetrieben durch KI",
+            heroTitle: "Verwandeln Sie Videos in <span>Reels & TikToks</span> mit einem Klick",
+            heroSub: "Die ultimative Plattform für Content Creator.",
+            dropTitle: "Video hierher ziehen oder klicken",
+            dropDesc: "Unterstützt MP4, MOV",
+            orDivider: "Oder YouTube-Link einfügen",
+            urlPlaceholder: "https://www.youtube.com/watch?v=...",
+            startBtn: "Starten",
+            pricingTitle: "Preistarife",
+            p1Title: "Testversion", p1f1: "2 kostenlose Videos", p1f2: "720p Qualität", p1f3: "Intelligenter Schnitt", p1Btn: "Aktueller Plan",
+            popBadge: "Beliebt",
+            p2Title: "Starter", p2f1: "150 Min/Monat", p2f2: "1080p HD", p2f3: "Kein Wasserzeichen", p2Btn: "Abonnieren",
+            p3Title: "Pro", p3f1: "Unbegrenzt", p3f2: "10 Sprachen", p3f3: "VIP Support", p3Btn: "Abonnieren"
+        }
+        // وباقي اللغات تعمل بنظام تلقائي إذا تم اختيارها
+    };
+
+    function changeLang(lang) {
+        const t = translations[lang] || translations['en']; // افتراضي إنجليزي لو اللغة مو موجودة بالقائمة المختصرة
+        document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+        
+        for (let key in t) {
+            let el = document.getElementById(key);
+            if (el) {
+                if (el.tagName === 'INPUT') {
+                    el.placeholder = t[key];
+                } else {
+                    el.innerHTML = t[key];
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>
