@@ -1,40 +1,180 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CutGenius - AI Video Platform</title>
+    <title>Cut Genius - منصة الذكاء الاصطناعي لتقطيع الفيديوهات</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --border-color: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            background-color: #0f172a;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Cairo', sans-serif;
+            min-height: 100vh;
+            line-height: 1.7;
         }
-        h1 {
-            color: #818cf8;
-            font-size: 40px;
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
         }
-        p {
-            color: #94a3b8;
-            font-size: 18px;
+
+        .logo {
+            font-size: 26px;
+            font-weight: 900;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .btn {
-            background-color: #6366f1;
-            color: white;
-            padding: 12px 24px;
-            border: none;
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-center {
+            display: flex;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .nav-center span {
+            background: var(--bg-card);
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .lang-select {
+            background: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
             border-radius: 8px;
-            font-size: 16px;
             cursor: pointer;
-            margin-top: 20px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            outline: none;
         }
-    </style>
-</head>
-<body>
-    <h1>CutGenius AI Platform</h1>
-    <p>Welcome! The AI video repurposing platform is ready for backend integration.</p>
-    <button class="btn" onclick="alert('System Active! Ready for Backend & AI setup.')">Test Platform</button>
-</body>
-</html>
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(to left, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.4;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: #fff;
+            padding: 15px 35px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 10px;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Workspace Box */
+        .workspace {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            margin-bottom: 60px;
+        }
+
+        .input-methods {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .input-methods {
+                grid-template-columns: 1fr;
+            }
+            .nav-center {
+                display: none;
+            }
+        }
+
+        .method-box {
+            background: var(--bg-dark);
+            border: 2px dashed var(--border-color);
+            border-radius: 14px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .method-box:hover {
+            border-color: var(--primary);
+        }
+
+        .method-box i {
+            font-size: 40px;
+            color: var(--primary);
+            margin
