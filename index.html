@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CutGenius | AI Video Editor</title>
+    <title id="pageTitle">CutGenius | AI Video Editor</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
@@ -33,8 +33,6 @@
             justify-content: center;
             align-items: flex-start;
             padding: 15px;
-            direction: rtl;
-            text-align: right;
             background-image: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 60%);
         }
 
@@ -76,18 +74,36 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .lang-select {
+        /* Multi-Language Global Buttons */
+        .lang-switcher {
+            display: flex;
             background: var(--bg-card);
-            color: var(--text-main);
-            padding: 6px 12px;
-            border-radius: 10px;
             border: 1px solid var(--border);
-            font-size: 13px;
-            outline: none;
+            border-radius: 20px;
+            padding: 3px;
+            gap: 2px;
+            overflow-x: auto;
+            max-width: 220px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 5px 8px;
+            font-size: 11px;
+            font-weight: 700;
+            border-radius: 15px;
             cursor: pointer;
             transition: 0.3s;
+            white-space: nowrap;
         }
-        .lang-select:hover { border-color: var(--primary); }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+        }
 
         /* Hero */
         .hero {
@@ -111,11 +127,10 @@
         }
 
         .hero h1 {
-            font-size: 23px;
+            font-size: 22px;
             font-weight: 900;
             margin-bottom: 12px;
             line-height: 1.45;
-            text-align: center;
             letter-spacing: -0.3px;
         }
 
@@ -123,7 +138,6 @@
             color: var(--text-muted);
             font-size: 13.5px;
             line-height: 1.6;
-            text-align: center;
         }
 
         /* Global Stats Bar */
@@ -192,8 +206,8 @@
             margin-bottom: 10px;
         }
 
-        .drop-zone h3 { font-size: 14px; margin-bottom: 5px; font-weight: 700; text-align: center; }
-        .drop-zone p { font-size: 11px; color: var(--text-muted); text-align: center; }
+        .drop-zone h3 { font-size: 14px; margin-bottom: 5px; font-weight: 700; }
+        .drop-zone p { font-size: 11px; color: var(--text-muted); }
 
         .divider {
             text-align: center;
@@ -206,12 +220,14 @@
             content: '';
             position: absolute;
             top: 50%;
-            width: 30%;
+            width: 25%;
             height: 1px;
             background: var(--border);
         }
-        .divider::before { right: 0; }
-        .divider::after { left: 0; }
+        [dir="rtl"] .divider::before { right: 0; }
+        [dir="rtl"] .divider::after { left: 0; }
+        [dir="ltr"] .divider::before { left: 0; }
+        [dir="ltr"] .divider::after { right: 0; }
 
         .url-box {
             display: flex;
@@ -245,7 +261,6 @@
             font-size: 14.5px;
             cursor: pointer;
             box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
-            text-align: center;
             transition: 0.3s;
         }
         .action-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(99, 102, 241, 0.6); }
@@ -286,15 +301,16 @@
         .popular-badge {
             position: absolute;
             top: -11px;
-            right: 22px;
+            padding: 4px 12px;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             color: #fff;
-            padding: 4px 12px;
             border-radius: 8px;
             font-size: 10.5px;
             font-weight: 800;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
+        [dir="rtl"] .popular-badge { right: 22px; }
+        [dir="ltr"] .popular-badge { left: 22px; }
 
         .price-header {
             display: flex;
@@ -331,7 +347,6 @@
             cursor: pointer;
             border: none;
             font-size: 13.5px;
-            text-align: center;
             transition: 0.3s;
         }
 
@@ -374,108 +389,265 @@
             <i class="fa-solid fa-wand-magic-sparkles"></i>
             <span>CutGenius</span>
         </div>
-        <div>
-            <select class="lang-select" id="langSelect" onchange="changeLang(this.value)">
-                <option value="ar">العربية</option>
-                <option value="en">English</option>
-            </select>
+        <!-- Multi-language Global Switcher Buttons -->
+        <div class="lang-switcher">
+            <button class="lang-btn active" id="lang-ar" onclick="switchLanguage('ar')">عربي</button>
+            <button class="lang-btn" id="lang-en" onclick="switchLanguage('en')">EN</button>
+            <button class="lang-btn" id="lang-fr" onclick="switchLanguage('fr')">FR</button>
+            <button class="lang-btn" id="lang-es" onclick="switchLanguage('es')">ES</button>
         </div>
     </header>
 
     <!-- Hero -->
     <div class="hero">
-        <div class="badge"><i class="fa-solid fa-bolt"></i> الجيل القادم من مونتاج الذكاء الاصطناعي</div>
-        <h1>حول فيديوهاتك الطويلة إلى مقاطع ريلز وتيك توك بضغطة زر</h1>
-        <p>المنصة الأولى الموجهة لصناع المحتوى، البودكاست، والمسوقين لمضاعفة المشاهدات بسرعة خيالية.</p>
+        <div class="badge"><i class="fa-solid fa-bolt"></i> <span data-i18n="badgeText">الجيل القادم من مونتاج الذكاء الاصطناعي</span></div>
+        <h1 data-i18n="heroTitle">حول فيديوهاتك الطويلة إلى مقاطع ريلز وتيك توك بضغطة زر</h1>
+        <p data-i18n="heroDesc">المنصة الأولى الموجهة لصناع المحتوى، البودكاست، والمسوقين لمضاعفة المشاهدات بسرعة خيالية.</p>
     </div>
 
     <!-- Global Stats Bar -->
     <div class="stats-bar">
         <div class="stat-item">
             <div class="num">+50K</div>
-            <div class="label">فيديو مُعالَج</div>
+            <div class="label" data-i18n="stat1">فيديو مُعالَج</div>
         </div>
         <div class="stat-item">
             <div class="num">99.8%</div>
-            <div class="label">دقة القص الذكي</div>
+            <div class="label" data-i18n="stat2">دقة القص الذكي</div>
         </div>
         <div class="stat-item">
             <div class="num">10x</div>
-            <div class="label">مضاعفة المشاهدات</div>
+            <div class="label" data-i18n="stat3">مضاعفة المشاهدات</div>
         </div>
     </div>
 
     <!-- Workspace -->
     <div class="workspace-card">
-        <div class="drop-zone" onclick="alert('فتح نافذة رفع الفيديو...')">
+        <div class="drop-zone" onclick="alert('Ready for upload...')">
             <i class="fa-solid fa-cloud-arrow-up"></i>
-            <h3>اسحب وأفلت فيديو هنا أو اضغط للاختيار</h3>
-            <p>بدعم ملفات MP4, MOV بوضوح عالي</p>
+            <h3 data-i18n="dropTitle">اسحب وأفلت فيديو هنا أو اضغط للاختيار</h3>
+            <p data-i18n="dropDesc">بدعم ملفات MP4, MOV بوضوح عالي</p>
         </div>
-        <div class="divider">أو ضع رابط يوتيوب مباشر</div>
+        <div class="divider" data-i18n="dividerText">أو ضع رابط يوتيوب مباشر</div>
         <div class="url-box">
             <input type="text" class="url-input" placeholder="https://www.youtube.com/watch?v=...">
-            <button class="action-btn" onclick="alert('جارٍ تحليل وقص الفيديو بالذكاء الاصطناعي...')">ابدأ التحويل الآن 🚀</button>
+            <button class="action-btn" onclick="alert('Processing video with AI...') " data-i18n="actionBtn">ابدأ التحويل الآن 🚀</button>
         </div>
     </div>
 
     <!-- Pricing -->
-    <h2 class="section-title">خطط الأسعار المصممة لنجاحك</h2>
+    <h2 class="section-title" data-i18n="pricingTitle">خطط الأسعار المصممة لنجاحك</h2>
     <div class="pricing-list">
         <!-- Trial -->
         <div class="price-card">
             <div class="price-header">
-                <h3>الباقة التجريبية</h3>
-                <div class="price-num">0$ <span>/ مجاناً</span></div>
+                <h3 data-i18n="plan1Title">الباقة التجريبية</h3>
+                <div class="price-num">0$ <span data-i18n="freeSpan">/ مجاناً</span></div>
             </div>
             <ul class="price-features">
-                <li><i class="fa-solid fa-check"></i> تجربتان مجانيتان للفيديو</li>
-                <li><i class="fa-solid fa-check"></i> جودة تصدير 720p HD</li>
-                <li><i class="fa-solid fa-check"></i> قص تلقائي بالذكاء الاصطناعي</li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="p1_f1">تجربتان مجانيتان للفيديو</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="p1_f2">جودة تصدير 720p HD</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="p1_f3">قص تلقائي بالذكاء الاصطناعي</span></li>
             </ul>
-            <button class="plan-btn secondary">الباقة الحالية</button>
+            <button class="plan-btn secondary" data-i18n="plan1Btn">الباقة الحالية</button>
         </div>
 
         <!-- Starter -->
         <div class="price-card popular">
-            <div class="popular-badge">الأكثر طلباً</div>
+            <div class="popular-badge" data-i18n="popularBadge">الأكثر طلباً</div>
             <div class="price-header">
-                <h3>باقة المبتدئين (Starter)</h3>
-                <div class="price-num">15$ <span>/ شهرياً</span></div>
+                <h3 data-i18n="plan2Title">باقة المبتدئين (Starter)</h3>
+                <div class="price-num">15$ <span data-i18n="monthSpan">/ شهرياً</span></div>
             </div>
             <ul class="price-features">
-                <li><i class="fa-solid fa-check"></i> 150 دقيقة رفع ومعالجة شهرياً</li>
-                <li><i class="fa-solid fa-check"></i> تصدير فائق بجودة 1080p HD</li>
-                <li><i class="fa-solid fa-check"></i> إزالة العلامة المائية نهائياً</li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="p2_f1">150 دقيقة رفع ومعالجة شهرياً</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="p2_f2">تصدير فائق بجودة 1080p HD</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="p2_f3">إزالة العلامة المائية نهائياً</span></li>
             </ul>
-            <button class="plan-btn primary" onclick="alert('التحويل لبوابة الدفع الآمنة...')">اشترك الآن</button>
+            <button class="plan-btn primary" onclick="alert('Redirecting to checkout...')" data-i18n="subscribeBtn">اشترك الآن</button>
         </div>
 
         <!-- Pro -->
         <div class="price-card">
             <div class="price-header">
-                <h3>الباقة المتقدمة (Pro)</h3>
-                <div class="price-num">29$ <span>/ شهرياً</span></div>
+                <h3 data-i18n="plan3Title">الباقة المتقدمة (Pro)</h3>
+                <div class="price-num">29$ <span data-i18n="monthSpan">/ شهرياً</span></div>
             </div>
             <ul class="price-features">
-                <li><i class="fa-solid fa-check"></i> معالجة غير محدودة بالكامل</li>
-                <li><i class="fa-solid fa-check"></i> دعم كل اللغات (10 لغات عالمية)</li>
-                <li><i class="fa-solid fa-check"></i> دعم فني مخصص بأولوية قصوى VIP</li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="p3_f1">معالجة غير محدودة بالكامل</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="p3_f2">دعم كل اللغات (10 لغات عالمية)</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="p3_f3">دعم فني مخصص بأولوية قصوى VIP</span></li>
             </ul>
-            <button class="plan-btn primary" onclick="alert('التحويل لبوابة الدفع الآمنة...')">انضم للمحترفين</button>
+            <button class="plan-btn primary" onclick="alert('Redirecting to checkout...')" data-i18n="proBtn">انضم للمحترفين</button>
         </div>
     </div>
 
     <!-- Footer -->
     <footer>
-        <p>جميع الحقوق محفوظة © 2026 <span>CutGenius Inc.</span></p>
-        <p>منصة عالمية متكاملة لصناع المحتوى والمسوقين الذكيين</p>
+        <p><span data-i18n="footerCopy">جميع الحقوق محفوظة © 2026</span> <span>CutGenius Inc.</span></p>
+        <p data-i18n="footerDesc">منصة عالمية متكاملة لصناع المحتوى والمسوقين الذكيين</p>
     </footer>
 </div>
 
 <script>
-    function changeLang(lang) {
-        document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+    const translations = {
+        ar: {
+            badgeText: "الجيل القادم من مونتاج الذكاء الاصطناعي",
+            heroTitle: "حول فيديوهاتك الطويلة إلى مقاطع ريلز وتيك توك بضغطة زر",
+            heroDesc: "المنصة الأولى الموجهة لصناع المحتوى، البودكاست، والمسوقين لمضاعفة المشاهدات بسرعة خيالية.",
+            stat1: "فيديو مُعالَج",
+            stat2: "دقة القص الذكي",
+            stat3: "مضاعفة المشاهدات",
+            dropTitle: "اسحب وأفلت فيديو هنا أو اضغط للاختيار",
+            dropDesc: "بدعم ملفات MP4, MOV بوضوح عالي",
+            dividerText: "أو ضع رابط يوتيوب مباشر",
+            actionBtn: "ابدأ التحويل الآن 🚀",
+            pricingTitle: "خطط الأسعار المصممة لنجاحك",
+            plan1Title: "الباقة التجريبية",
+            freeSpan: "/ مجاناً",
+            p1_f1: "تجربتان مجانيتان للفيديو",
+            p1_f2: "جودة تصدير 720p HD",
+            p1_f3: "قص تلقائي بالذكاء الاصطناعي",
+            plan1Btn: "الباقة الحالية",
+            popularBadge: "الأكثر طلباً",
+            plan2Title: "باقة المبتدئين (Starter)",
+            monthSpan: "/ شهرياً",
+            p2_f1: "150 دقيقة رفع ومعالجة شهرياً",
+            p2_f2: "تصدير فائق بجودة 1080p HD",
+            p2_f3: "إزالة العلامة المائية نهائياً",
+            subscribeBtn: "اشترك الآن",
+            plan3Title: "الباقة المتقدمة (Pro)",
+            p3_f1: "معالجة غير محدودة بالكامل",
+            p3_f2: "دعم كل اللغات (10 لغات عالمية)",
+            p3_f3: "دعم فني مخصص بأولوية قصوى VIP",
+            proBtn: "انضم للمحترفين",
+            footerCopy: "جميع الحقوق محفوظة © 2026",
+            footerDesc: "منصة عالمية متكاملة لصناع المحتوى والمسوقين الذكيين"
+        },
+        en: {
+            badgeText: "Next-Gen AI Video Editing",
+            heroTitle: "Turn Long Videos into Viral Reels & TikToks in One Click",
+            heroDesc: "The ultimate platform for creators, podcasters, and marketers to skyrocket views.",
+            stat1: "Videos Processed",
+            stat2: "AI Cut Accuracy",
+            stat3: "Views Boost",
+            dropTitle: "Drag & drop video here or browse",
+            dropDesc: "Supports high-res MP4, MOV files",
+            dividerText: "Or paste direct YouTube link",
+            actionBtn: "Start Converting Now 🚀",
+            pricingTitle: "Pricing Plans Built for Your Success",
+            plan1Title: "Trial Plan",
+            freeSpan: "/ Free",
+            p1_f1: "2 Free Video Tries",
+            p1_f2: "720p HD Export Quality",
+            p1_f3: "Automatic AI Cutting",
+            plan1Btn: "Current Plan",
+            popularBadge: "Most Popular",
+            plan2Title: "Starter Plan",
+            monthSpan: "/ month",
+            p2_f1: "150 mins monthly processing",
+            p2_f2: "1080p HD High Quality Export",
+            p2_f3: "Remove Watermark Completely",
+            subscribeBtn: "Subscribe Now",
+            plan3Title: "Pro Plan",
+            p3_f1: "Unlimited Full Processing",
+            p3_f2: "All Languages Support (10 langs)",
+            p3_f3: "VIP Priority Support",
+            proBtn: "Join as Pro",
+            footerCopy: "All rights reserved © 2026",
+            footerDesc: "Global platform for modern content creators & smart marketers"
+        },
+        fr: {
+            badgeText: "Montage vidéo IA de nouvelle génération",
+            heroTitle: "Transformez vos vidéos en Reels et TikToks en un clic",
+            heroDesc: "La plateforme idéale pour les créateurs et marketeurs afin de booster leurs vues.",
+            stat1: "Vidéos traitées",
+            stat2: "Précision de découpe IA",
+            stat3: "Boost de vues",
+            dropTitle: "Glissez-déposez la vidéo ici",
+            dropDesc: "Prend en charge MP4, MOV",
+            dividerText: "Ou collez un lien YouTube direct",
+            actionBtn: "Commencer la conversion 🚀",
+            pricingTitle: "Tarifs conçus pour votre réussite",
+            plan1Title: "Plan d'essai",
+            freeSpan: "/ Gratuit",
+            p1_f1: "2 Essais vidéo gratuits",
+            p1_f2: "Qualité d'export 720p HD",
+            p1_f3: "Découpe automatique IA",
+            plan1Btn: "Plan actuel",
+            popularBadge: "Le plus populaire",
+            plan2Title: "Plan Starter",
+            monthSpan: "/ mois",
+            p2_f1: "150 mins de traitement mensuel",
+            p2_f2: "Export HD 1080p supérieur",
+            p2_f3: "Supprimer le filigrane",
+            subscribeBtn: "S'abonner",
+            plan3Title: "Plan Pro",
+            p3_f1: "Traitement illimité complet",
+            p3_f2: "Support de toutes les langues",
+            p3_f3: "Support prioritaire VIP",
+            proBtn: "Devenir Pro",
+            footerCopy: "Tous droits réservés © 2026",
+            footerDesc: "Plateforme mondiale pour créateurs et marketeurs"
+        },
+        es: {
+            badgeText: "Edición de video con IA de próxima generación",
+            heroTitle: "Convierte videos largos en Reels y TikToks en un clic",
+            heroDesc: "La plataforma definitiva para creadores y especialistas en marketing.",
+            stat1: "Videos procesados",
+            stat2: "Precisión de corte IA",
+            stat3: "Aumento de vistas",
+            dropTitle: "Arrastra y suelta tu video aquí",
+            dropDesc: "Compatible con MP4, MOV",
+            dividerText: "O pega un enlace de YouTube directo",
+            actionBtn: "Comenzar conversión 🚀",
+            pricingTitle: "Planes de precios diseñados para tu éxito",
+            plan1Title: "Plan de Prueba",
+            freeSpan: "/ Gratis",
+            p1_f1: "2 Pruebas de video gratis",
+            p1_f2: "Calidad de exportación 720p HD",
+            p1_f3: "Corte automático con IA",
+            plan1Btn: "Plan actual",
+            popularBadge: "Más Popular",
+            plan2Title: "Plan Starter",
+            monthSpan: "/ mes",
+            p2_f1: "150 mins de procesamiento mensual",
+            p2_f2: "Exportación de alta calidad 1080p",
+            p2_f3: "Eliminar marca de agua",
+            subscribeBtn: "Suscribirse",
+            plan3Title: "Plan Pro",
+            p3_f1: "Procesamiento ilimitado completo",
+            p3_f2: "Soporte de todos los idiomas",
+            p3_f3: "Soporte prioritario VIP",
+            proBtn: "Unirse como Pro",
+            footerCopy: "Todos los derechos reservados © 2026",
+            footerDesc: "Plataforma global para creadores de contenido y marketers"
+        }
+    };
+
+    function switchLanguage(lang) {
+        // Set direction
+        const html = document.getElementById('htmlRoot');
+        if (lang === 'ar') {
+            html.setAttribute('dir', 'rtl');
+            html.setAttribute('lang', 'ar');
+        } else {
+            html.setAttribute('dir', 'ltr');
+            html.setAttribute('lang', lang);
+        }
+
+        // Update active button state
+        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+        document.getElementById('lang-' + lang).classList.add('active');
+
+        // Apply translations to elements with data-i18n
+        const t = translations[lang];
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (t[key]) {
+                el.innerText = t[key];
+            }
+        });
     }
 </script>
 </body>
