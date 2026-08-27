@@ -449,7 +449,7 @@
                 <li><i class="fa-solid fa-check"></i> <span data-i18n="p1_f2">جودة تصدير 720p HD</span></li>
                 <li><i class="fa-solid fa-check"></i> <span data-i18n="p1_f3">قص تلقائي بالذكاء الاصطناعي</span></li>
             </ul>
-            <button class="plan-btn secondary" data-i18n="plan1Btn">الباقة التجريبية</button>
+            <button class="plan-btn secondary" onclick="alert('Starting free trial...')" data-i18n="subscribeBtn">اشترك الآن</button>
         </div>
 
         <!-- Starter -->
@@ -478,7 +478,7 @@
                 <li><i class="fa-solid fa-check"></i> <span data-i18n="p3_f2">دعم كل اللغات (10 لغات عالمية)</span></li>
                 <li><i class="fa-solid fa-check"></i> <span data-i18n="p3_f3">دعم فني مخصص بأولوية قصوى VIP</span></li>
             </ul>
-            <button class="plan-btn primary" onclick="alert('Redirecting to checkout...')" data-i18n="proBtn">انضم للمحترفين</button>
+            <button class="plan-btn primary" onclick="alert('Redirecting to checkout...')" data-i18n="subscribeBtn">اشترك الآن</button>
         </div>
     </div>
 
@@ -508,19 +508,17 @@
             p1_f1: "تجربة مجانية واحدة للفيديو",
             p1_f2: "جودة تصدير 720p HD",
             p1_f3: "قص تلقائي بالذكاء الاصطناعي",
-            plan1Btn: "الباقة التجريبية",
             popularBadge: "الأكثر طلباً",
             plan2Title: "باقة المبتدئين (Starter)",
             monthSpan: "/ شهرياً",
             p2_f1: "150 دقيقة رفع ومعالجة شهرياً",
             p2_f2: "تصدير فائق بجودة 1080p HD",
             p2_f3: "إزالة العلامة المائية نهائياً",
-            subscribeBtn: "اشترك الآن",
             plan3Title: "الباقة المتقدمة (Pro)",
             p3_f1: "معالجة غير محدودة بالكامل",
             p3_f2: "دعم كل اللغات (10 لغات عالمية)",
             p3_f3: "دعم فني مخصص بأولوية قصوى VIP",
-            proBtn: "انضم للمحترفين",
+            subscribeBtn: "اشترك الآن",
             footerCopy: "جميع الحقوق محفوظة © 2026",
             footerDesc: "منصة عالمية متكاملة لصناع المحتوى والمسوقين الذكيين"
         },
@@ -541,19 +539,17 @@
             p1_f1: "1 Free Video Try",
             p1_f2: "720p HD Export Quality",
             p1_f3: "Automatic AI Cutting",
-            plan1Btn: "Trial Plan",
             popularBadge: "Most Popular",
             plan2Title: "Starter Plan",
             monthSpan: "/ month",
             p2_f1: "150 mins monthly processing",
             p2_f2: "1080p HD High Quality Export",
             p2_f3: "Remove Watermark Completely",
-            subscribeBtn: "اشترك الآن",
             plan3Title: "Pro Plan",
             p3_f1: "Unlimited Full Processing",
             p3_f2: "All Languages Support (10 langs)",
             p3_f3: "VIP Priority Support",
-            proBtn: "انضم للمحترفين",
+            subscribeBtn: "Subscribe Now",
             footerCopy: "All rights reserved © 2026",
             footerDesc: "Global platform for modern content creators & smart marketers"
         },
@@ -574,19 +570,17 @@
             p1_f1: "1 Essai vidéo gratuit",
             p1_f2: "Qualité d'export 720p HD",
             p1_f3: "Découpe automatique IA",
-            plan1Btn: "Plan d'essai",
             popularBadge: "Le plus populaire",
             plan2Title: "Plan Starter",
             monthSpan: "/ mois",
             p2_f1: "150 mins de traitement mensuel",
             p2_f2: "Export HD 1080p supérieur",
             p2_f3: "Supprimer le filigrane",
-            subscribeBtn: "اشترك الآن",
             plan3Title: "Plan Pro",
             p3_f1: "Traitement illimité complet",
             p3_f2: "Support de toutes les langues",
             p3_f3: "Support prioritaire VIP",
-            proBtn: "انضم للمحترفين",
+            subscribeBtn: "S'abonner",
             footerCopy: "Tous droits réservés © 2026",
             footerDesc: "Plateforme mondiale pour créateurs et marketeurs"
         },
@@ -607,19 +601,17 @@
             p1_f1: "1 Prueba de video gratis",
             p1_f2: "Calidad de exportación 720p HD",
             p1_f3: "Corte automático con IA",
-            plan1Btn: "Plan de Prueba",
             popularBadge: "Más Popular",
             plan2Title: "Plan Starter",
             monthSpan: "/ mes",
             p2_f1: "150 mins de procesamiento mensual",
             p2_f2: "Exportación de alta calidad 1080p",
             p2_f3: "Eliminar marca de agua",
-            subscribeBtn: "اشترك الآن",
             plan3Title: "Plan Pro",
             p3_f1: "Procesamiento ilimitado completo",
             p3_f2: "Soporte de todos los idiomas",
             p3_f3: "Soporte prioritario VIP",
-            proBtn: "انضم للمحترفين",
+            subscribeBtn: "Suscribirse",
             footerCopy: "Todos los derechos reservados © 2026",
             footerDesc: "Plataforma global para creadores de contenido y marketers"
         }
@@ -639,7 +631,7 @@
         const activeBtn = document.getElementById('lang-' + lang);
         if(activeBtn) activeBtn.classList.add('active');
 
-        const t = translations[lang] || translations['en']; // Fallback to English if lang not found
+        const t = translations[lang] || translations['en'];
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
             if (t[key]) {
@@ -650,14 +642,13 @@
 
     // Auto-detect browser language on first load
     window.addEventListener('DOMContentLoaded', () => {
-        const browserLang = navigator.language || navigator.userLanguage; // e.g., "en-US", "fr-FR", "ar-SA"
+        const browserLang = navigator.language || navigator.userLanguage; 
         const shortLang = browserLang ? browserLang.substring(0, 2).toLowerCase() : 'en';
         
-        // If the browser language is supported in our translations, use it. Otherwise default to 'ar' or 'en'
         if (translations[shortLang]) {
             switchLanguage(shortLang);
         } else {
-            switchLanguage('ar'); // Default fallback
+            switchLanguage('ar'); 
         }
     });
 </script>
