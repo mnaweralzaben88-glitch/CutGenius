@@ -656,6 +656,39 @@
             switchLanguage('ar'); 
         }
     });
-</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.querySelector('form'); 
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const videoUrlInput = document.querySelector('#videoUrlInput');
+      const videoUrl = videoUrlInput ? videoUrlInput.value : '';
+      
+      if (!videoUrl) {
+        alert('الرجاء إدخال رابط الفيديو أولاً!');
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/process-video', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ videoUrl })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          alert('نجح الاتصال بالسيرفر! ' + data.message);
+        } else {
+          alert('خطأ: ' + data.error);
+        }
+      } catch (err) {
+        alert('حدث خطأ أثناء الاتصال بالخادم.');
+      }
+    });
+  }
+});
+</script> 
 </body>
 </html>
