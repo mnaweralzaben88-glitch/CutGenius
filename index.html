@@ -669,26 +669,38 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('الرجاء إدخال رابط الفيديو أولاً!');
         return;
       }
-
+      // إظهار رسالة أو مؤشر تحميل بدل التنبيه اللي بيقفل الصفحة
+      const submitBtn = form.querySelector('button');
+      if (submitBtn) {
+        submitBtn.innerText = 'جاري معالجة الفيديو بالذكاء الاصطناعي... ⏳';
+        submitBtn.disabled = true;
+      }
+        const originalText = submitBtn ? submitBtn.innerText : 'ابدأ التحويل الآن 🚀';
       try {
         const response = await fetch('/api/process-video', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ videoUrl })
         });
-
         const data = await response.json();
+        
         if (response.ok) {
-          alert('نجح الاتصال بالسيرفر! ' + data.message);
+          alert('تمت المعالجة بنجاح! النتيجة: ' + (data.message || 'تم تحويل الفيديو'));
+          // هون بتقدر توجهه لصفحة النتيجة أو تعرضها
         } else {
-          alert('خطأ: ' + data.error);
+          alert('خطأ من السيرفر: ' + (data.error || 'حدث خطأ ما'));
         }
       } catch (err) {
-        alert('حدث خطأ أثناء الاتصال بالخادم.');
+        alert('حدث خطأ أثناء الاتصال بالخادم. تأكد من الرابط وحاول مجدداً.');
+      } finally {
+        if (submitBtn) {
+          submitBtn.innerText = originalText;
+          submitBtn.disabled = false;
+        }
       }
     });
   }
 });
-</script> 
+</script>
 </body>
 </html>
