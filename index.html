@@ -684,12 +684,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = await response.json();
         
         if (response.ok) {
-          alert('تمت المعالجة بنجاح! النتيجة: ' + (data.message || 'تم تحويل الفيديو'));
-          // هون بتقدر توجهه لصفحة النتيجة أو تعرضها
-        } else {
-          alert('خطأ من السيرفر: ' + (data.error || 'حدث خطأ ما'));
-        }
-      } catch (err) {
+        console.log('تمت المعالجة بنجاح:', data.message);
+    } else {
+        console.log('خطأ من السيرفر:', data.error);
+        alert('عذراً، حدث خطأ أثناء المعالجة: ' + (data.error || 'خطأ غير معروف'));
+    }
         alert('حدث خطأ أثناء الاتصال بالخادم. تأكد من الرابط وحاول مجدداً.');
       } finally {
         if (submitBtn) {
