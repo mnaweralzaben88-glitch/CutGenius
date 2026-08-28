@@ -675,8 +675,7 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.innerText = 'جاري معالجة الفيديو بالذكاء الاصطناعي... ⏳';
         submitBtn.disabled = true;
       }
-        const originalText = submitBtn ? submitBtn.innerText : 'ابدأ التحويل الآن 🚀';
-      try {
+        const originalText = submitBtn ? submitBtn.innerText :
         const response = await fetch('/api/process-video', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
